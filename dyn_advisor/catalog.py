@@ -25,11 +25,23 @@ class GraphCatalog:
         self.graphs: List[Dict[str, Any]] = []
         self.docs: List[Dict[str, Any]] = []
         self.logger = None
+        self._search_index: Dict[str, str] = {}  # Cache for search optimization
 
     def set_logger(self, logger):
         """Set logger for this catalog."""
         self.logger = logger
         self.parser.set_logger(logger)
+
+    def _build_search_index(self):
+        """Build a search index for faster lookups."""
+        self._search_index = {}
+        for i, graph in enumerate(self.graphs):
+            # Build searchable text once during indexing
+            searchable_text = (
+                f"{graph['name']} {graph['description']} {graph['category']} "
+                f"{' '.join([node['name'] for node in graph['nodes']])}"
+            ).lower()
+            self._search_index[i] = searchable_text
 
     def build_catalog(self) -> int:
         """
@@ -71,6 +83,9 @@ class GraphCatalog:
         if self.logger:
             self.logger.info(f"Catalog built: {len(self.graphs)} graphs indexed")
 
+        # Build search index for performance
+        self._build_search_index()
+
         return len(self.graphs)
 
     def get_all_graphs(self) -> List[Dict[str, Any]]:
@@ -105,14 +120,9 @@ class GraphCatalog:
         query_lower = query.lower()
         results = []
 
-        for graph in self.graphs:
-            # Search in name, description, category, and node names
-            searchable_text = (
-                f"{graph['name']} {graph['description']} {graph['category']} "
-                f"{' '.join([node['name'] for node in graph['nodes']])}"
-            ).lower()
-
+        # Use pre-built search index for better performance
+        for i, searchable_text in self._search_index.items():
             if query_lower in searchable_text:
-                results.append(graph)
+                results.append(self.graphs[i])
 
         return results

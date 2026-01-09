@@ -101,16 +101,25 @@ class DynamoExecutor:
                 self.logger.error(f"Execution failed: {result['message']}")
             return result
 
+        # Validate CLI path for security
+        cli_path = Path(self.dynamo_cli_path)
+        if not cli_path.is_absolute():
+            result['message'] = "Dynamo CLI path must be absolute"
+            if self.logger:
+                self.logger.error("Execution failed: CLI path not absolute")
+            return result
+
         # Log execution attempt
         if self.logger:
             self.logger.info(f"EXECUTING GRAPH: {graph['name']}")
             self.logger.info(f"  Path: {graph_path}")
-            self.logger.info(f"  CLI: {self.dynamo_cli_path}")
+            self.logger.info(f"  CLI: {cli_path}")
 
         try:
             # Execute the graph using Dynamo CLI
+            # Using list form of subprocess.run to avoid shell injection
             # Note: Actual command may vary based on Dynamo version
-            cmd = [self.dynamo_cli_path, str(graph_path)]
+            cmd = [str(cli_path), str(graph_path)]
 
             if self.logger:
                 self.logger.debug(f"Running command: {' '.join(cmd)}")

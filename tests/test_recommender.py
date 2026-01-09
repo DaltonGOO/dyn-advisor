@@ -21,7 +21,10 @@ def test_recommend():
                 'Name': 'Simple Rectangle',
                 'Description': 'Creates a simple rectangle',
                 'Category': 'Geometry',
-                'Nodes': [{'Id': 'n1', 'Name': 'Rectangle', 'ConcreteType': 'Type'}] * 3
+                'Nodes': [
+                    {'Id': 'n1', 'Name': 'Rectangle', 'ConcreteType': 'Type'}
+                    for _ in range(3)
+                ]
             },
             {
                 'Name': 'Complex Wall Analysis',
