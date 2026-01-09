@@ -23,7 +23,11 @@ def test_build_catalog():
                 'Description': f'Description {i}',
                 'Category': 'Testing',
                 'Nodes': [
-                    {'Id': f'node{j}', 'Name': f'Node{j}', 'ConcreteType': 'Type'}
+                    {
+                        'Id': f'graph{i}_node{j}',
+                        'Name': f'Node{j}',
+                        'ConcreteType': 'Type',
+                    }
                     for j in range(i + 1)
                 ],
                 'Connectors': []

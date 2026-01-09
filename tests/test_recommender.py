@@ -22,8 +22,8 @@ def test_recommend():
                 'Description': 'Creates a simple rectangle',
                 'Category': 'Geometry',
                 'Nodes': [
-                    {'Id': 'n1', 'Name': 'Rectangle', 'ConcreteType': 'Type'}
-                    for _ in range(3)
+                    {'Id': f'n{i}', 'Name': f'Rectangle{i}', 'ConcreteType': 'Type'}
+                    for i in range(3)
                 ]
             },
             {
