@@ -1,0 +1,57 @@
+{
+  "Uuid": "c3d4e5f6-g7h8-9012-cdef-gh3456789012",
+  "Name": "Point Grid Generator",
+  "Description": "Generates a grid of points for parametric design workflows",
+  "Category": "Geometry",
+  "Author": "Example User",
+  "Nodes": [
+    {
+      "Id": "node1",
+      "Name": "Point.ByCoordinates",
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction"
+    },
+    {
+      "Id": "node2",
+      "Name": "Code Block",
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNode"
+    },
+    {
+      "Id": "node3",
+      "Name": "Number Sequence",
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction"
+    },
+    {
+      "Id": "node4",
+      "Name": "Number",
+      "ConcreteType": "Dynamo.Graph.Nodes.NumberInput"
+    },
+    {
+      "Id": "node5",
+      "Name": "List.Flatten",
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "node2",
+      "End": "node1"
+    },
+    {
+      "Start": "node3",
+      "End": "node2"
+    },
+    {
+      "Start": "node4",
+      "End": "node3"
+    },
+    {
+      "Start": "node1",
+      "End": "node5"
+    }
+  ],
+  "View": {
+    "X": 50,
+    "Y": 50,
+    "Zoom": 1.1
+  }
+}

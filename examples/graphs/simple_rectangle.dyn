@@ -1,0 +1,39 @@
+{
+  "Uuid": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "Name": "Simple Rectangle Creator",
+  "Description": "Creates a simple rectangle using Dynamo geometry nodes",
+  "Category": "Geometry",
+  "Author": "Example User",
+  "Nodes": [
+    {
+      "Id": "node1",
+      "Name": "Rectangle.ByWidthLength",
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction"
+    },
+    {
+      "Id": "node2",
+      "Name": "Number Slider",
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSInputSlider"
+    },
+    {
+      "Id": "node3",
+      "Name": "Number Slider",
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSInputSlider"
+    }
+  ],
+  "Connectors": [
+    {
+      "Start": "node2",
+      "End": "node1"
+    },
+    {
+      "Start": "node3",
+      "End": "node1"
+    }
+  ],
+  "View": {
+    "X": 0,
+    "Y": 0,
+    "Zoom": 1.0
+  }
+}
